@@ -15,30 +15,40 @@ class TomatoTimer:
         self.master = master
         master.title("Pomodoro Timer")
 
-        self.label_text = Label(master, text='Timer:')
-        self.label_text.pack()
+        # Set minimum column size for better GUI
+        master.grid_columnconfigure(0, minsize=100)
+        master.grid_columnconfigure(1, minsize=100)
+
+        # Labels
+        self.label_text = Label(master, text='Current timer:')
+        self.label_text.grid(row=0, column=0)
         self.label = Label(master, text=str(self.timer))
-        self.label.pack()
+        self.label.grid(row=0, column=1)
 
         self.tomato_count_text = Label(master, text='Completed tomatoes:')
-        self.tomato_count_text.pack()
+        self.tomato_count_text.grid(row=1, column=0)
         self.tomato_count = Label(master, text=str(self.completed_tomatoes))
-        self.tomato_count.pack()
+        self.tomato_count.grid(row=1, column=1)
 
-        self.start_button = Button(master, text="Start", command=self.start)
-        self.start_button.pack()
+        # Buttons
+        self.start_button = Button(master, text="Start", command=self.start,
+                                   width=7)
+        self.start_button.grid(row=2, column=0)
 
-        self.pause_button = Button(master, text="Pause", command=self.pause)
-        self.pause_button.pack()
+        self.pause_button = Button(master, text="Pause", command=self.pause,
+                                   width=7)
+        self.pause_button.grid(row=2, column=1)
 
-        self.reset_button = Button(master, text="Reset", command=self.reset)
-        self.reset_button.pack()
+        self.reset_button = Button(master, text="Reset", command=self.reset,
+                                   width=7)
+        self.reset_button.grid(row=3, column=0)
 
-        self.resume_button = Button(master, text="Resume", command=self.resume)
-        self.resume_button.pack()
+        self.resume_button = Button(master, text="Resume", command=self.resume,
+                                    width=7)
+        self.resume_button.grid(row=3, column=1)
 
         self.close_button = Button(master, text="Close", command=master.quit)
-        self.close_button.pack()
+        self.close_button.grid(row=4, columnspan=2)
 
     def start(self):
         if self.timer <= 0:
