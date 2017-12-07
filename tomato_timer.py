@@ -5,6 +5,17 @@ from tkinter import Button
 from playsound import playsound
 
 
+def time_format(time_in_seconds):
+    """
+    Given a number of seconds, returns their representation as `mm:ss`,
+    padded with zeroes.
+    """
+    minutes = time_in_seconds // 60
+    seconds = time_in_seconds % 60
+
+    return '{:02}:{:02}'.format(minutes, seconds)
+
+
 class TomatoTimer:
     def __init__(self, master):
         self.working_minutes = 4  #25
@@ -86,7 +97,7 @@ class TomatoTimer:
             playsound('time_up.mp3', block=False)
 
         # Update the timer label and call itself after one second
-        self.label['text'] = str(self.timer)
+        self.label['text'] = time_format(self.timer)
         self.label.after(1000, self.update_timer)
 
 
