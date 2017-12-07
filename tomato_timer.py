@@ -18,8 +18,8 @@ def time_format(time_in_seconds):
 
 class TomatoTimer:
     def __init__(self, master):
-        self.working_minutes = 4  #25
-        self.timer = 4  #25*60
+        self.working_minutes = 25
+        self.timer = self.working_minutes * 60
         self.running_time = False
         self.completed_tomatoes = 0
 
@@ -33,7 +33,7 @@ class TomatoTimer:
         # Labels
         self.label_text = Label(master, text='Current timer:')
         self.label_text.grid(row=0, column=0)
-        self.label = Label(master, text=str(self.timer))
+        self.label = Label(master, text=time_format(self.timer))
         self.label.grid(row=0, column=1)
 
         self.tomato_count_text = Label(master, text='Completed tomatoes:')
@@ -63,7 +63,7 @@ class TomatoTimer:
 
     def start(self):
         if self.timer <= 0:
-            self.timer = self.working_minutes
+            self.timer = self.working_minutes * 60
         self.running_time = True
         self.master.iconify()
 
@@ -71,7 +71,7 @@ class TomatoTimer:
         self.running_time = False
 
     def reset(self):
-        self.timer = self.working_minutes
+        self.timer = self.working_minutes * 60
         self.running_time = False
 
     def resume(self):
@@ -86,7 +86,7 @@ class TomatoTimer:
         if self.timer <= 0:
             # Stop timer and reset it to the original value
             self.running_time = False
-            self.timer = self.working_minutes
+            self.timer = self.working_minutes * 60
 
             # Update the tomato count
             self.completed_tomatoes += 1
