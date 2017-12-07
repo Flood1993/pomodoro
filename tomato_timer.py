@@ -92,6 +92,7 @@ class TomatoTimer:
 
 if __name__ == '__main__':
     root = Tk()
+    root.resizable(0, 0)  # Disable resizable application
     tomato = TomatoTimer(root)
     tomato.update_timer()
     root.mainloop()
