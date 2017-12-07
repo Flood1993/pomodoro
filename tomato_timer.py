@@ -2,6 +2,8 @@ from tkinter import Tk
 from tkinter import Label
 from tkinter import Button
 
+from playsound import playsound
+
 
 class TomatoTimer:
     def __init__(self, master):
@@ -71,6 +73,7 @@ class TomatoTimer:
 
             # Bring back the window so user can easily start next tomato
             self.master.deiconify()
+            playsound('time_up.mp3', block=False)
 
         # Update the timer label and call itself after one second
         self.label['text'] = str(self.timer)
