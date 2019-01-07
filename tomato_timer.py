@@ -87,8 +87,10 @@ class TomatoTimer:
     def update_timer(self):
         if self.running_time:
             self.timer -= 1
+
             if self.tick_var.get():
-                playsound('C:\\Users\\tdsch\\Documents\\Ubuntu-shared\\pomodoro\\knob.mp3', block=False)
+                playsound('resources\\knob.mp3', block=False)
+                
         # Time is up
         if self.timer <= 0:
             # Stop timer and reset it to the original value
@@ -101,7 +103,7 @@ class TomatoTimer:
 
             # Bring back the window so user can easily start next tomato
             self.master.deiconify()
-            playsound('C:\\Users\\tdsch\Documents\\Ubuntu-shared\\pomodoro\\time_up.mp3', block=False)
+            playsound('resources\\time_up.mp3', block=False)
 
         # Update the timer label and call itself after one second
         self.label['text'] = time_format(self.timer)
