@@ -1,6 +1,8 @@
 from tkinter import Tk
 from tkinter import Label
 from tkinter import Button
+from tkinter import Checkbutton
+from tkinter import IntVar
 
 from playsound import playsound
 
@@ -22,6 +24,7 @@ class TomatoTimer:
         self.timer = self.working_minutes * 60
         self.running_time = False
         self.completed_tomatoes = 0
+        self.tick_var = IntVar()
 
         self.master = master
         master.title("Pomodoro Timer")
@@ -42,24 +45,27 @@ class TomatoTimer:
         self.tomato_count.grid(row=1, column=1)
 
         # Buttons
+        self.tick_button = Checkbutton(master, text="Tick sound", variable=self.tick_var)
+        self.tick_button.grid(row=2, column = 0)
+
         self.start_button = Button(master, text="Start", command=self.start,
                                    width=7)
-        self.start_button.grid(row=2, column=0)
+        self.start_button.grid(row=3, column=0)
 
         self.pause_button = Button(master, text="Pause", command=self.pause,
                                    width=7)
-        self.pause_button.grid(row=2, column=1)
+        self.pause_button.grid(row=3, column=1)
 
         self.reset_button = Button(master, text="Reset", command=self.reset,
                                    width=7)
-        self.reset_button.grid(row=3, column=0)
+        self.reset_button.grid(row=4, column=0)
 
         self.resume_button = Button(master, text="Resume", command=self.resume,
                                     width=7)
-        self.resume_button.grid(row=3, column=1)
+        self.resume_button.grid(row=4, column=1)
 
         self.close_button = Button(master, text="Close", command=master.quit)
-        self.close_button.grid(row=4, columnspan=2)
+        self.close_button.grid(row=5, columnspan=2)
 
     def start(self):
         if self.timer <= 0:
@@ -82,6 +88,9 @@ class TomatoTimer:
         if self.running_time:
             self.timer -= 1
 
+            if self.tick_var.get():
+                playsound('resources\\knob.mp3', block=False)
+                
         # Time is up
         if self.timer <= 0:
             # Stop timer and reset it to the original value
@@ -94,7 +103,7 @@ class TomatoTimer:
 
             # Bring back the window so user can easily start next tomato
             self.master.deiconify()
-            playsound('time_up.mp3', block=False)
+            playsound('resources\\time_up.mp3', block=False)
 
         # Update the timer label and call itself after one second
         self.label['text'] = time_format(self.timer)
