@@ -3,6 +3,13 @@ from tkinter import Label
 from tkinter import Button
 
 from playsound import playsound
+from yaml import load
+from yaml import FullLoader
+
+
+def load_config():
+    with open("./config.yaml") as f:
+        return load(f, Loader=FullLoader)
 
 
 def time_format(time_in_seconds):
@@ -18,7 +25,9 @@ def time_format(time_in_seconds):
 
 class TomatoTimer:
     def __init__(self, master):
-        self.working_minutes = 25
+        self.config = load_config()
+
+        self.working_minutes = self.config['minutes_per_pomodoro']
         self.timer = self.working_minutes * 60
         self.running_time = False
         self.completed_tomatoes = 0
